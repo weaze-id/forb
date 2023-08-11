@@ -42,10 +42,7 @@
   "module": "dist/esm/index.js",
   "files": [
     "dist/",
-    "README.md",
-    "LICENSE",
-    "CONTRIBUTING.md",
-    "CODE_OF_CONDUCT.md"
+    "LICENSE"
   ],
   "types": "dist/index.d.ts"
 }
