@@ -1,0 +1,35 @@
+{
+  "name": "forb",
+  "version": "1.0.0",
+  "description": "Lightweight and intuitive form validation library for React applications. Easily manage and validate forms, enhancing user experience and ensuring data accuracy with minimal effort",
+  "keywords": [
+    "form",
+    "valiation"
+  ],
+  "author": "Edwin Sulaiman",
+  "license": "MIT",
+  "scripts": {
+    "rollup-build-lib": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.3",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "@types/react": "^18.2.20",
+    "rollup": "^3.28.0",
+    "rollup-plugin-dts": "^5.3.1",
+    "tslib": "^2.6.1",
+    "typescript": "^5.1.6"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "eventemitter3": "^5.0.1"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts"
+}
