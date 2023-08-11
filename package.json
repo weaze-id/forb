@@ -3,11 +3,22 @@
   "version": "1.0.1",
   "description": "Lightweight and intuitive form validation library for React applications. Easily manage and validate forms, enhancing user experience and ensuring data accuracy with minimal effort",
   "keywords": [
+    "forb",
     "form",
-    "valiation"
+    "forms",
+    "react",
+    "react-dom",
+    "hooks",
+    "react hooks",
+    "validation",
+    "flutter like form experience"
   ],
   "author": "Edwin Sulaiman",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weaze-id/forb.git"
+  },
   "scripts": {
     "rollup-build-lib": "rollup -c"
   },
