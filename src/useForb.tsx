@@ -2,11 +2,28 @@ import EventEmitter from "eventemitter3";
 import React from "react";
 import { useRef, useEffect, useState } from "react";
 
+export type ForbRegisterProps = {
+  validator: ForbValidatorFunc;
+  render: ForbRenderFunc;
+};
+
+export type ForValidateFunc = () => boolean;
+export type ForbValidatorFunc = () => string | null;
+export type ForbRenderFunc = (error: string | null) => JSX.Element;
+export type ForbRegisterFunc = (props: ForbRegisterProps) => JSX.Element;
+
+export type UseForbReturn = {
+  validate: ForValidateFunc;
+  register: ForbRegisterFunc;
+};
+
+type ForbFieldProps = { control: EventEmitter; validator: ForbValidatorFunc; render: ForbRenderFunc };
+
 /**
  * Hook for managing validation and rendering of forb fields.
  * @returns An object containing functions for validation and registration.
  */
-export function useForb() {
+export function useForb(): UseForbReturn {
   // Maintain a reference to the validity status and control event emitter
   const _isValid = useRef(true);
   const _control = useRef(new EventEmitter());
@@ -36,13 +53,7 @@ export function useForb() {
    * @param render - A function that renders the field with the provided error message.
    * @returns The JSX element representing the forb field.
    */
-  function register({
-    validator,
-    render,
-  }: {
-    validator: () => string | null;
-    render: (errorMessage: string | null) => JSX.Element;
-  }): JSX.Element {
+  function register({ validator, render }: ForbRegisterProps): JSX.Element {
     const onValidate = () => {
       const result = validator();
       if (result && _isValid.current) {
@@ -64,15 +75,7 @@ export function useForb() {
  * @param render - A function that renders the field with the provided error message.
  * @returns The rendered JSX element representing the forb field.
  */
-function _ForbField({
-  control,
-  validator,
-  render,
-}: {
-  control: EventEmitter;
-  validator: () => string | null;
-  render: (errorMessage: string | null) => JSX.Element;
-}) {
+function _ForbField({ control, validator, render }: ForbFieldProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Set up validation event listener and cleanup
