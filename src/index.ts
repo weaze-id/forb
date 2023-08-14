@@ -1,4 +1,13 @@
-export { useForb } from "./useForb";
+export {
+  useForb,
+  ForbRegisterProps,
+  ForValidateFunc,
+  ForbValidatorFunc,
+  ForbRenderFunc,
+  ForbRegisterFunc,
+  UseForbReturn,
+} from "./useForb";
+
 export {
   validator,
   Validator,
