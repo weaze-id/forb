@@ -4,17 +4,17 @@
  * @param validators - An array of Validator instances to apply.
  * @returns A validation function that returns an error message or null based on the validators.
  */
-export function validator(value: string | null, validators: Validator[]): () => string | null {
+export function validator(value: string | null, validators: Validator[]): string | null {
   const isEmpty = value === null || value.trim().length === 0;
 
   for (let i = 0; i < validators.length; i++) {
     const validator = validators[i];
 
-    if (validator.ignoreEmptyValues && isEmpty) return () => null;
-    if (!validator.validate(value)) return () => validator.errorMessage;
+    if (validator.ignoreEmptyValues && isEmpty) return null;
+    if (!validator.validate(value)) return validator.errorMessage;
   }
 
-  return () => null;
+  return null;
 }
 
 /**

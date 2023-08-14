@@ -57,7 +57,7 @@ function App() {
       <div>
         <label>Email</label>
         {register({
-          validator: validator(email.current, [
+          validator:() => validator(email.current, [
             new RequiredValidator("Required"),
             new EmailValidator("Invalid email format"),
           ]),
