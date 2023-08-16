@@ -4,8 +4,8 @@
  * @param validators - An array of Validator instances to apply.
  * @returns A validation function that returns an error message or null based on the validators.
  */
-export function validator(value: string | null, validators: Validator[]): string | null {
-  const isEmpty = value === null || value.trim().length === 0;
+export function validator(value: string | null | undefined, validators: Validator[]): string | null {
+  const isEmpty = !value || value.trim().length === 0;
 
   for (let i = 0; i < validators.length; i++) {
     const validator = validators[i];
@@ -41,7 +41,7 @@ export abstract class Validator {
    * @param value - The value to be validated.
    * @returns true if validation passes, false otherwise.
    */
-  abstract validate(value: string | null): boolean;
+  abstract validate(value: string | null | undefined): boolean;
 }
 
 /**
@@ -50,8 +50,8 @@ export abstract class Validator {
 export class RequiredValidator extends Validator {
   ignoreEmptyValues = false;
 
-  validate(value: string | null): boolean {
-    return value !== null && value.trim().length > 0;
+  validate(value: string | null | undefined): boolean {
+    return !!value && value.trim().length > 0;
   }
 }
 
@@ -68,8 +68,8 @@ export class MaxLengthValidator extends Validator {
 
   ignoreEmptyValues = true;
 
-  validate(value: string | null): boolean {
-    return value !== null && value.length <= this.max;
+  validate(value: string | null | undefined): boolean {
+    return !!value && value.length <= this.max;
   }
 }
 
@@ -86,8 +86,8 @@ export class MinLengthValidator extends Validator {
 
   ignoreEmptyValues = true;
 
-  validate(value: string | null): boolean {
-    return value !== null && value.length >= this.min;
+  validate(value: string | null | undefined): boolean {
+    return !!value && value.length >= this.min;
   }
 }
 
@@ -106,8 +106,8 @@ export class RangeLengthValidator extends Validator {
 
   ignoreEmptyValues = true;
 
-  validate(value: string | null): boolean {
-    return value !== null && value.length >= this.min && value.length <= this.max;
+  validate(value: string | null | undefined): boolean {
+    return !!value && value.length >= this.min && value.length <= this.max;
   }
 }
 
@@ -126,9 +126,9 @@ export class RangeValidator extends Validator {
 
   ignoreEmptyValues = true;
 
-  validate(value: string | null): boolean {
+  validate(value: string | null | undefined): boolean {
     const numericValue = parseFloat(value!);
-    return value !== null && !isNaN(numericValue) && numericValue >= this.min && numericValue <= this.max;
+    return !!value && !isNaN(numericValue) && numericValue >= this.min && numericValue <= this.max;
   }
 }
 
@@ -145,8 +145,8 @@ export class PatternValidator extends Validator {
 
   ignoreEmptyValues = true;
 
-  validate(value: string | null): boolean {
-    return value !== null && this.pattern.test(value);
+  validate(value: string | null | undefined): boolean {
+    return !!value && this.pattern.test(value);
   }
 }
 
